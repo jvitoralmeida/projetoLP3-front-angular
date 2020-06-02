@@ -1,0 +1,56 @@
+<h1 class="m-3">Carrinho</h1>
+<hr style="border: 5px solid #006491; border-radius: 20px;" />
+<div class="row">
+  <div *ngIf="itens.length > 0; else mensagemCarrinhoVazio">
+    <div class="d-flex p-2 flex-column bd-highlight justify-content-center">
+      <div *ngFor="let item of itens; index as i">
+        <div class="row align-items-center m-3">
+          <img
+            src="{{ item.urlImage }}"
+            class="rounded ml-3"
+            style="width: 100px; height: 100px;"
+          />
+          <div>
+            <h3 class="ml-3">Sabor: {{ item.nome }}</h3>
+            <h3 class="ml-3">Preco: {{ item.preco | currency: "BRL":true }}</h3>
+          </div>
+          <input
+            type="number"
+            class="form form-control ml-5"
+            style="max-width: 60px;"
+            placeholder="1"
+            value="1"
+            (input)="mudarQuantidadePizza($event, item.id)"
+            min="1"
+          />
+          <a (click)="removeItemLista(i)" class="btn btn-danger ml-3"
+            ><fa-icon [icon]="faTrash"></fa-icon
+          ></a>
+        </div>
+      </div>
+      <div class="row">
+        <h2 class="m-4">
+          Valor final: {{ valorfinal | currency: "BRL":true }}
+        </h2>
+        <button
+          class="btn btn-danger"
+          style="width: 200px; height: 75px;"
+          (click)="confirma = true"
+        >
+          Finalizar Pedido
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="confirma" style="min-width: 50%;">
+    <app-confirma-pedido
+      [pedido]="pedido"
+      [valorFinal]="valorfinal"
+    ></app-confirma-pedido>
+  </div>
+</div>
+
+<ng-template #mensagemCarrinhoVazio>
+  <h2 class="ml-4" style="color: #006491;">Voce nao tem itens no carrinho</h2>
+</ng-template>

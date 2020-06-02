@@ -1,0 +1,13 @@
+<div
+  class="d-flex flex-row bd-highlight mb-3 flex-wrap ml-3 justify-content-start"
+>
+  <div *ngFor="let p of pizza">
+    <div style="max-width: 200px;" class="m-3">
+      <img src="{{ p.urlImage }}" class="w-100 rounded" />
+      <h3 style="font-size: 20px;" class="mt-1">{{ p.nome }}</h3>
+      <button class="btn btn-danger mt-2 w-100" (click)="addPizzaNoCarrinho(p)">
+        Adicionar direto ao carrinho
+      </button>
+    </div>
+  </div>
+</div>
